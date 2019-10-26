@@ -10,9 +10,10 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.bumptech.glide.Glide;
 import com.example.nearby.R;
 import com.example.nearby.data.model.api.ExploreVenue;
+import com.example.nearby.repository.VenueRepository;
+import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 
@@ -20,9 +21,11 @@ public class VenueAdapter extends RecyclerView.Adapter<VenueAdapter.ViewHolder> 
 
     private Context context;
     ArrayList<ExploreVenue> venueArrayList;
+    private VenueRepository venueRepository;
 
     public VenueAdapter(Context context) {
         this.context = context;
+        venueRepository = new VenueRepository();
         this.venueArrayList = new ArrayList<>();
     }
 
@@ -38,9 +41,12 @@ public class VenueAdapter extends RecyclerView.Adapter<VenueAdapter.ViewHolder> 
         ExploreVenue exploreVenue=venueArrayList.get(i);
         viewHolder.name.setText(exploreVenue.getVenue().getName());
         viewHolder.address.setText(exploreVenue.getVenue().getLocation().getAddress());
-//        Glide.with(context)
-//                .load(exploreVenue.getVenue().getCategories().get(0).getIcon().getIconUrl())
-//                .into(viewHolder.photo);
+        Picasso.get()
+                .load(exploreVenue.getVenue().getPhotoUrl())
+                .resize(80, 80)
+                .placeholder(R.mipmap.ic_placeholder)
+                .centerCrop()
+                .into(viewHolder.photo);
     }
 
     @Override
