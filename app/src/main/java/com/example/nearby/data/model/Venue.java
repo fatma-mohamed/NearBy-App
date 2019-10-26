@@ -3,14 +3,24 @@ package com.example.nearby.data.model;
 import java.util.ArrayList;
 
 public class Venue {
+    public String id;
     public String name;
+    public String photoUrl;
     public Location location;
-    public ArrayList<Category> categories;
 
-    public Venue(String name, Location location, ArrayList<Category> categories) {
+    public Venue(String id, String name, String photoUrl, Location location) {
+        this.id = id;
         this.name = name;
+        this.photoUrl = photoUrl;
         this.location = location;
-        this.categories = categories;
+    }
+
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
     }
 
     public String getName() {
@@ -29,11 +39,11 @@ public class Venue {
         this.location = location;
     }
 
-    public ArrayList<Category> getCategories() {
-        return categories;
+    public String getPhotoUrl() {
+        return photoUrl;
     }
 
-    public void setCategories(ArrayList<Category> categories) {
-        this.categories = categories;
+    public void setPhotoUrl(String photoUrl) {
+        this.photoUrl = photoUrl;
     }
 }
