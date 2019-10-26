@@ -51,6 +51,13 @@
             android:textAlignment="center"
             android:text="@string/something_went_wrong">
         </TextView>
+
+        <Button
+            android:id="@+id/button"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@android:color/transparent"
+            android:text="Try again" />
     </LinearLayout>
 
     <LinearLayout

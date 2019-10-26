@@ -2,12 +2,10 @@ package com.example.nearby.data;
 
 
 import android.app.Activity;
-import android.content.Context;
 import android.location.Location;
 
 import androidx.lifecycle.LiveData;
 
-//import com.example.nearby.data.model.Location;
 import com.google.android.gms.location.FusedLocationProviderClient;
 import com.google.android.gms.location.LocationCallback;
 import com.google.android.gms.location.LocationRequest;

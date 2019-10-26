@@ -40,17 +40,14 @@ public class VenueRepository {
                         if (response.body() != null) {
                             ArrayList<ExploreVenue> venues = response.body().getResponse().getGroups().get(0).getItems();
                             data.setValue(venues);
+                        } else {
+                            data.setValue(new ArrayList<ExploreVenue>());
                         }
                     }
 
                     @Override
                     public void onFailure(Call<ExploreData> call, Throwable t) {
                         data.setValue(null);
-                        try {
-                            throw t;
-                        } catch (Throwable throwable) {
-                            throwable.printStackTrace();
-                        }
                     }
                 });
         return data;
