@@ -12,20 +12,21 @@
         android:minWidth="50dp"
         android:minHeight="50dp"
         android:scaleType="centerCrop"
+        android:layout_marginEnd="8dp"
         android:src="@drawable/ic_placeholder"/>
 
     <LinearLayout
         android:id="@+id/linearLayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:padding="4dp"
+        android:layout_marginStart="8dp"
+        android:layout_gravity="center"
         android:orientation="vertical">
 
         <TextView
             android:id="@+id/name"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:padding="4dp"
             android:textAlignment="textStart"
             android:textStyle="bold"
             android:textSize="18sp"
@@ -36,7 +37,6 @@
             android:id="@+id/address"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:padding="4dp"
             android:textAlignment="textStart"
             android:textSize="16sp"
             android:textColor="@android:color/black"
