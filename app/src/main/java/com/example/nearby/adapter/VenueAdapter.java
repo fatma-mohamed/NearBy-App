@@ -21,9 +21,9 @@ public class VenueAdapter extends RecyclerView.Adapter<VenueAdapter.ViewHolder> 
     private Context context;
     ArrayList<ExploreVenue> venueArrayList;
 
-    public VenueAdapter(Context context, ArrayList<ExploreVenue> venueArrayList) {
+    public VenueAdapter(Context context) {
         this.context = context;
-        this.venueArrayList = venueArrayList;
+        this.venueArrayList = new ArrayList<>();
     }
 
     @NonNull
@@ -37,16 +37,20 @@ public class VenueAdapter extends RecyclerView.Adapter<VenueAdapter.ViewHolder> 
     public void onBindViewHolder(@NonNull VenueAdapter.ViewHolder viewHolder, int i) {
         ExploreVenue exploreVenue=venueArrayList.get(i);
         viewHolder.name.setText(exploreVenue.getVenue().getName());
-        viewHolder.address.setText(exploreVenue.getVenue().getCategories().get(0).getCrossStreet());
-        Glide.with(context)
-                .load(exploreVenue.getVenue().getCategories().get(0).getIcon().getIconUrl())
-                .thumbnail(R.drawable.ic_broken_image_black_24dp)
-                .into(viewHolder.photo);
+        viewHolder.address.setText(exploreVenue.getVenue().getLocation().getAddress());
+//        Glide.with(context)
+//                .load(exploreVenue.getVenue().getCategories().get(0).getIcon().getIconUrl())
+//                .into(viewHolder.photo);
     }
 
     @Override
     public int getItemCount() {
         return venueArrayList.size();
+    }
+
+    public void addItems(ArrayList<ExploreVenue> venues) {
+        venueArrayList.addAll(venues);
+        notifyDataSetChanged();
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder {
