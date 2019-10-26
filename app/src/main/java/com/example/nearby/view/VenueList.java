@@ -24,12 +24,17 @@ import android.widget.ProgressBar;
 
 import com.example.nearby.R;
 import com.example.nearby.adapter.VenueAdapter;
+import com.example.nearby.data.local.SharedPreferencesManager;
 import com.example.nearby.data.model.api.ExploreData;
 import com.example.nearby.data.model.api.ExploreVenue;
 import com.example.nearby.view_model.LocationViewModel;
 import com.example.nearby.view_model.VenueListViewModel;
 
 import java.util.ArrayList;
+
+import static com.example.nearby.data.local.Constants.KEY_ACTION_MODE;
+import static com.example.nearby.data.local.Constants.VALUE_ACTION_MODE_REALTIME;
+import static com.example.nearby.data.local.Constants.VALUE_ACTION_MODE_SINGLE_UPDATE;
 
 
 public class VenueList extends Fragment {
@@ -44,6 +49,7 @@ public class VenueList extends Fragment {
     private LinearLayoutManager layoutManager;
     private VenueAdapter adapter;
     private Location lastLocation;
+    private SharedPreferencesManager sharedPreferencesManager;
 
     public static VenueList newInstance() {
         return new VenueList();
@@ -64,11 +70,14 @@ public class VenueList extends Fragment {
         recycler_view.setHasFixedSize(true);
 
         adapter = new VenueAdapter(getContext());
+        sharedPreferencesManager = new SharedPreferencesManager(getActivity());
+
         recycler_view.setAdapter(adapter);
 
         setHasOptionsMenu(true);
         return view;
     }
+
 
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
@@ -76,7 +85,21 @@ public class VenueList extends Fragment {
         mViewModel = ViewModelProviders.of(getActivity()).get(VenueListViewModel.class);
         locationViewModel = new LocationViewModel(getActivity());
 
-        startLocationUpdate();
+        checkDefaultMode();
+    }
+
+
+    private void checkDefaultMode() {
+        String actionMode = sharedPreferencesManager.getValue(KEY_ACTION_MODE);
+        if(!actionMode.equals("")) {
+            if(actionMode.equals(VALUE_ACTION_MODE_REALTIME)){
+                startLocationUpdate();
+            } else if(actionMode.equals(VALUE_ACTION_MODE_SINGLE_UPDATE)) {
+                getVenues();
+            }
+        } else {
+            startLocationUpdate();
+        }
     }
 
     private void startLocationUpdate() {
@@ -127,8 +150,15 @@ public class VenueList extends Fragment {
 
     @Override
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
-        // Do something that differs the Activity's menu here
         super.onCreateOptionsMenu(menu, inflater);
+        String actionMode = sharedPreferencesManager.getValue(KEY_ACTION_MODE);
+        if(!actionMode.equals("")) {
+            if(actionMode.equals(VALUE_ACTION_MODE_REALTIME)){
+                menu.getItem(0).setTitle(R.string.real_time);
+            } else if(actionMode.equals(VALUE_ACTION_MODE_SINGLE_UPDATE)) {
+                menu.getItem(0).setTitle(R.string.single_update);
+            }
+        }
     }
 
     @Override
@@ -137,9 +167,11 @@ public class VenueList extends Fragment {
             case R.id.action_change_mode:
                 if (item.getTitle().toString().equals(getString(R.string.real_time))) {
                     item.setTitle(R.string.single_update);
+                    sharedPreferencesManager.save(KEY_ACTION_MODE, VALUE_ACTION_MODE_SINGLE_UPDATE);
                     stopLocationUpdate();
                 } else {
                     item.setTitle(R.string.real_time);
+                    sharedPreferencesManager.save(KEY_ACTION_MODE, VALUE_ACTION_MODE_REALTIME);
                     startLocationUpdate();
                 }
                 return true;

@@ -8,14 +8,20 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.lifecycle.Observer;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.nearby.R;
 import com.example.nearby.data.model.api.ExploreVenue;
+import com.example.nearby.data.model.api.PhotoData;
 import com.example.nearby.repository.VenueRepository;
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 public class VenueAdapter extends RecyclerView.Adapter<VenueAdapter.ViewHolder> {
 
@@ -37,16 +43,30 @@ public class VenueAdapter extends RecyclerView.Adapter<VenueAdapter.ViewHolder> 
     }
 
     @Override
-    public void onBindViewHolder(@NonNull VenueAdapter.ViewHolder viewHolder, int i) {
+    public void onBindViewHolder(@NonNull final VenueAdapter.ViewHolder viewHolder, int i) {
         ExploreVenue exploreVenue=venueArrayList.get(i);
         viewHolder.name.setText(exploreVenue.getVenue().getName());
         viewHolder.address.setText(exploreVenue.getVenue().getLocation().getAddress());
-        Picasso.get()
-                .load(exploreVenue.getVenue().getPhotoUrl())
-                .resize(50, 50)
-                .placeholder(R.drawable.ic_placeholder)
-                .centerCrop()
-                .into(viewHolder.photo);
+
+        // Get venue's photo url
+        venueRepository.getVenuePhoto(exploreVenue.getVenue().getId()).enqueue(new Callback<PhotoData>() {
+            @Override
+            public void onResponse(Call<PhotoData> call, Response<PhotoData> response) {
+                if(response.body() != null) {
+                    Picasso.get()
+                            .load(response.body().getResponse().getPhotos().getItems().get(0).getPhotoUrl())
+                            .resize(50, 50)
+                            .placeholder(R.drawable.ic_placeholder)
+                            .centerCrop()
+                            .into(viewHolder.photo);
+                }
+            }
+
+            @Override
+            public void onFailure(Call<PhotoData> call, Throwable t) {
+
+            }
+        });
     }
 
     @Override

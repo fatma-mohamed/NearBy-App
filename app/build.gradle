@@ -14,15 +14,15 @@ android {
     buildTypes {
         debug {
             buildConfigField("String", "BASE_URL", "\"https://api.foursquare.com/v2/\"")
-            buildConfigField("String", "CLIENT_ID", "\"0VOUSN5RGCGWDYCSUS0NEWDBGUXJGMPB1QUVGB25Y2TI1A4X\"")
-            buildConfigField("String", "CLIENT_SECRET", "\"LEI1LDYUOWERUM51KQOF2U52SCYD4DTTULJY10NV20PLJ3T2\"")
+            buildConfigField("String", "CLIENT_ID", "\"KTQBVJFCGU30LP54LTQ4DPFEB3LXVBGOJO34LVQQDW443GDH\"")
+            buildConfigField("String", "CLIENT_SECRET", "\"QI0ORAIB0WCGRHI3U0NEVIE4O5FOJP4X0YHAYFT5XFXRWJ4L\"")
         }
         release {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
             buildConfigField("String", "BASE_URL", "\"https://api.foursquare.com/v2/\"")
-            buildConfigField("String", "CLIENT_ID", "\"0VOUSN5RGCGWDYCSUS0NEWDBGUXJGMPB1QUVGB25Y2TI1A4X\"")
-            buildConfigField("String", "CLIENT_SECRET", "\"LEI1LDYUOWERUM51KQOF2U52SCYD4DTTULJY10NV20PLJ3T2\"")
+            buildConfigField("String", "CLIENT_ID", "\"KTQBVJFCGU30LP54LTQ4DPFEB3LXVBGOJO34LVQQDW443GDH\"")
+            buildConfigField("String", "CLIENT_SECRET", "\"QI0ORAIB0WCGRHI3U0NEVIE4O5FOJP4X0YHAYFT5XFXRWJ4L\"")
         }
     }
 }

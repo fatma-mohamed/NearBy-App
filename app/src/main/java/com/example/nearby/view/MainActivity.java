@@ -32,19 +32,4 @@ public class MainActivity extends AppCompatActivity {
         return true;
     }
 
-//    @Override
-//    public boolean onOptionsItemSelected(MenuItem item) {
-//        switch (item.getItemId()) {
-//            case R.id.action_change_mode:
-//                if (item.getTitle().toString().equals(R.string.real_time)) {
-//                    item.setTitle(R.string.single_update);
-//                } else {
-//                    item.setTitle(R.string.real_time);
-//                }
-//                return true;
-//            default:
-//                return super.onOptionsItemSelected(item);
-//        }
-//    }
-
 }

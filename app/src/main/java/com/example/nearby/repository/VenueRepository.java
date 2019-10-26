@@ -3,11 +3,9 @@ package com.example.nearby.repository;
 import androidx.lifecycle.MutableLiveData;
 
 import com.example.nearby.BuildConfig;
-import com.example.nearby.data.model.Photo;
 import com.example.nearby.data.model.api.ExploreData;
 import com.example.nearby.data.model.api.ExploreVenue;
 import com.example.nearby.data.model.api.PhotoData;
-import com.example.nearby.data.model.api.Photos;
 import com.example.nearby.data.remote.ApiEndPoint;
 import com.example.nearby.network.RetrofitClientInstance;
 
@@ -41,28 +39,7 @@ public class VenueRepository {
                     public void onResponse(Call<ExploreData> call, Response<ExploreData> response) {
                         if (response.body() != null) {
                             ArrayList<ExploreVenue> venues = response.body().getResponse().getGroups().get(0).getItems();
-                            for(final ExploreVenue venue: venues){
-                             apiEndPoint.getVenuePhoto(venue.getVenue().getId(),
-                                     BuildConfig.CLIENT_ID, BuildConfig.CLIENT_SECRET, VERSION).enqueue(new Callback<PhotoData>() {
-                                 @Override
-                                 public void onResponse(Call<PhotoData> call, Response<PhotoData> response) {
-                                    if(response!=null && response.body() != null){
-                                        ArrayList<Photo> photos = response.body().getResponse().getPhotos().getItems();
-                                        if(photos != null && photos.size() > 0) {
-                                            venue.getVenue().setPhotoUrl(photos.get(0).getPhotoUrl());
-                                        }
-                                    }
-                                 }
-
-                                 @Override
-                                 public void onFailure(Call<PhotoData> call, Throwable t) {
-
-                                 }
-                             });
-                            }
-
                             data.setValue(venues);
-
                         }
                     }
 
@@ -77,5 +54,10 @@ public class VenueRepository {
                     }
                 });
         return data;
+    }
+
+    public Call<PhotoData> getVenuePhoto(String id) {
+        return apiEndPoint.getVenuePhoto(id,
+                BuildConfig.CLIENT_ID, BuildConfig.CLIENT_SECRET, VERSION);
     }
 }
