@@ -43,8 +43,8 @@ public class VenueAdapter extends RecyclerView.Adapter<VenueAdapter.ViewHolder> 
         viewHolder.address.setText(exploreVenue.getVenue().getLocation().getAddress());
         Picasso.get()
                 .load(exploreVenue.getVenue().getPhotoUrl())
-                .resize(80, 80)
-                .placeholder(R.mipmap.ic_placeholder)
+                .resize(50, 50)
+                .placeholder(R.drawable.ic_placeholder)
                 .centerCrop()
                 .into(viewHolder.photo);
     }

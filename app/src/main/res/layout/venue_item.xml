@@ -9,9 +9,10 @@
         android:id="@+id/photo"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:minWidth="80dp"
-        android:minHeight="80dp"
-        android:src="@mipmap/ic_no_image"/>
+        android:minWidth="50dp"
+        android:minHeight="50dp"
+        android:scaleType="centerCrop"
+        android:src="@drawable/ic_placeholder"/>
 
     <LinearLayout
         android:id="@+id/linearLayout"
