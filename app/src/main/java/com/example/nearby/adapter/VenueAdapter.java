@@ -55,7 +55,7 @@ public class VenueAdapter extends RecyclerView.Adapter<VenueAdapter.ViewHolder> 
     }
 
     public void addItems(ArrayList<ExploreVenue> venues) {
-        venueArrayList.addAll(venues);
+        venueArrayList = venues;
         notifyDataSetChanged();
     }
 

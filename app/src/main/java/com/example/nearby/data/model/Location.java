@@ -2,26 +2,34 @@ package com.example.nearby.data.model;
 
 public class Location {
     public String address;
-    public String crossStreet;
+    public Double latitude;
+    public Double longitude;
 
-    public Location(String address, String crossStreet) {
+    public Location(String address) {
         this.address = address;
-        this.crossStreet = crossStreet;
     }
 
     public void setAddress(String address) {
         this.address = address;
     }
 
-    public void setCrossStreet(String crossStreet) {
-        this.crossStreet = crossStreet;
-    }
-
     public String getAddress() {
         return address;
     }
 
-    public String getCrossStreet() {
-        return crossStreet;
+    public Double getLatitude() {
+        return latitude;
+    }
+
+    public void setLatitude(Double latitude) {
+        this.latitude = latitude;
+    }
+
+    public Double getLongitude() {
+        return longitude;
+    }
+
+    public void setLongitude(Double longitude) {
+        this.longitude = longitude;
     }
 }
